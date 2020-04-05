@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/ccalljavaadd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="C调用Java代码——add" />
+
+    <Button
+        android:id="@+id/ccalljavahellofromjava"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="C调用Java代码——HelloFromJava" />
+
+    <Button
+        android:id="@+id/ccalljavacallbackPrintString"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="C调用Java代码——CallbackPrintString" />
+
+    <Button
+        android:id="@+id/ccalljavasayhello"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="C调用Java代码——SayHello" />
+
+</LinearLayout>
