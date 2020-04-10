@@ -6,11 +6,13 @@ import android.util.Log;
  * @Author: 林伟茂
  * @Version: 1.0
  */
+//和C代码进行交互
+//native是调用 C 的代码，那么 C中就必须要有一个方法与之对应（例如：C中要有 callbackAdd 函数（利用头文件））
 public class JNITest {
 
     static {
 
-        System.loadLibrary("ccalljava");
+        System.loadLibrary("ccalljava");//加载动态链接库
     }
 
     /*
@@ -40,6 +42,7 @@ public class JNITest {
      *
      */
     public native void callbackSayHello();
+
 
 
     // 下面的所有方法让 C 来调用（既然要让 C来调用，那么就要通知 C）

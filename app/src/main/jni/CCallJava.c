@@ -132,4 +132,63 @@ JNIEXPORT void JNICALL Java_com_lwm_ccalljava_JNITest_callbackSayHello
     (*env)->CallStaticVoidMethod(env, jclazz, jmethodIDs,jst);
     //成功调用了 public static void sayHello(String s)
 
-};
+}
+
+
+/*
+ *
+ * instance：谁调用了当前 Java_com_lwm_ccalljava_JNITest_callBackShowToast对应的Java接口，
+ * 就是谁的实例：当前是 JNI.this（因为需要在 MainActivity中使用 jniTest.callBackShowToast()进行调用，此时为 jniTest 去调用，因此当前是 JNI.this）
+ * 而现在的实例是 MainActivity.this
+ *
+ * （就相当于谁调用 JNITest 类中的callBackShowToast()方法，因为调用 callBackShowToast()方法才触发 Java_com_lwm_ccalljava_JNITest_callBackShowToast）
+ */
+void Java_com_lwm_ccalljava_JNITest_callBackShowToast(JNIEnv *env, jobject instance) {
+
+    //让 C 代码调用 MainActivity 里面的 public void showToast()方法，那么就要得到 MainActivity 的实例
+    //1、得到字节码(字节码是用于实例化这个类)
+    jclass jclazz = (*env)->FindClass(env, "com/lwm/ccalljava/MainActivity");
+
+    //2、得到方法
+    //GetMethodID()中最后一个参数是方法签名(这里需要MainActivity类的签名，调谁就用谁的签名，调用那个方法就用哪个方法中的类)
+    //jmethodID   (*GetMethodID)(JNIEnv*, jclass, const char*, const char*);
+    jmethodID jmethodIDs = (*env)->GetMethodID(env, jclazz, "showToast", "()V");
+
+    //3、实例化该类
+    //jobject     (*AllocObject)(JNIEnv*, jclass);
+    jobject jobject1 = (*env)->AllocObject(env,jclazz);
+
+    //4.调用方法
+    //void        (*CallVoidMethod)(JNIEnv*, jobject, jmethodID, ...);
+    (*env)->CallVoidMethod(env,jobject1,jmethodIDs);
+    //成功调用了 public void showToast()方法
+}
+
+/*
+ *
+ * instance：谁调用了当前 Java_com_lwm_ccalljava_JNITest_callBackShowToast对应的Java接口，
+ * 就是谁的实例：当前是 JNI.this（因为需要在 MainActivity中使用 jniTest.callBackShowToast()进行调用，此时为 jniTest 去调用，因此当前是 JNI.this）
+ * 而现在的实例是 MainActivity.this
+ *
+ * （就相当于谁调用 JNITest 类中的callBackShowToast()方法，因为调用 callBackShowToast()方法才触发 Java_com_lwm_ccalljava_JNITest_callBackShowToast）
+ */
+//在 MainActivity 下不用实例化了，直接使用传过来的 instance
+void Java_com_lwm_ccalljava_MainActivity_callBackShowToast(JNIEnv *env, jobject instance) {
+    //让 C 代码调用 MainActivity 里面的 public void showToast()方法
+    //1、得到字节码(字节码是用于实例化这个类)
+    jclass jclazz = (*env)->FindClass(env, "com/lwm/ccalljava/MainActivity");
+
+    //2、得到方法
+    //GetMethodID()中最后一个参数是方法签名(这里需要MainActivity类的签名，调谁就用谁的签名，调用那个方法就用哪个方法中的类)
+    //jmethodID   (*GetMethodID)(JNIEnv*, jclass, const char*, const char*);
+    jmethodID jmethodIDs = (*env)->GetMethodID(env, jclazz, "showToast", "()V");
+
+    //3、实例化该类
+    //jobject     (*AllocObject)(JNIEnv*, jclass);
+    //jobject jobject1 = (*env)->AllocObject(env,jclazz);
+
+    //4.调用方法
+    //void        (*CallVoidMethod)(JNIEnv*, jobject, jmethodID, ...);
+    (*env)->CallVoidMethod(env,instance,jmethodIDs);
+    //成功调用了 public void showToast()方法
+}

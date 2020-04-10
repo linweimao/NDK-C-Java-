@@ -11,6 +11,9 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/ccalljava0" />
+            <option value="$PROJECT_DIR$/ccalljava2" />
+            <option value="$PROJECT_DIR$/ccalljava5" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
